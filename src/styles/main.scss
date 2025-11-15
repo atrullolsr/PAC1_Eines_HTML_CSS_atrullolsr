@@ -1,0 +1,548 @@
+// ===============================
+// Variables globals
+// ===============================
+$font-base: 'Helvetica Neue', Arial, sans-serif;
+$color-bg: #ffffff;
+$color-primary: #1e88e5;
+$color-secondary: #ff9800;
+$color-text: #222222;
+$color-text-light: #555555;
+$color-focus: #ff5722;
+$color-border: #e0e0e0;
+$max-width: 1200px;
+
+// ===============================
+// Mixins
+// ===============================
+@mixin btn-style($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  padding: 0.8rem 1.4rem;
+  border-radius: 6px;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  transition: background 0.3s ease;
+
+  &:hover,
+  &:focus {
+    background-color: darken($bg-color, 10%);
+  }
+}
+
+@mixin card-style($bg-color, $border-color) {
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  overflow: hidden;
+  background: $bg-color;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .card-content {
+    padding: 1rem;
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+    }
+
+    p {
+      color: $color-text-light;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: $color-primary;
+      font-weight: bold;
+
+      &:hover {
+        color: darken($color-primary, 15%);
+      }
+    }
+  }
+}
+
+@mixin glider-button($bg-color, $text-color) {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 5;
+
+  &:hover {
+    background-color: darken($bg-color, 10%);
+  }
+
+  &:focus {
+    outline: 3px solid $color-focus;
+  }
+}
+
+// ===============================
+// Reset bàsic + accessibilitat
+// ===============================
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-base;
+  font-size: 16px;
+  line-height: 1.5;
+  color: $color-text;
+  background-color: $color-bg;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: $color-primary;
+  color: $color-bg;
+  padding: 8px 12px;
+  z-index: 100;
+  border-radius: 4px;
+  transition: top 0.3s ease;
+
+  &:focus {
+    top: 10px;
+  }
+}
+
+.back-link {
+  @include btn-style($color-primary, $color-bg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+// ===============================
+// Header i menú
+// ===============================
+header {
+  background-color: $color-primary;
+  color: $color-bg;
+  height: 4rem;
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 0 2rem;
+    height: 100%;
+
+    .logo a {
+      color: $color-bg;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .menu-toggle {
+      display: none; // només visible a mòbil
+      font-size: 2rem;
+      color: $color-bg;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: flex;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: $color-bg;
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+
+        &:hover,
+        &:focus {
+          background-color: $color-focus;
+          border-radius: 4px;
+        }
+
+        &.active {
+          background-color: $color-secondary;
+        }
+      }
+    }
+  }
+}
+
+// ===============================
+// Main
+// ===============================
+main {
+  flex-grow: 1;
+  width: 100%;
+  max-width: $max-width;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2 {
+    text-align: center;
+  }
+
+  section {
+    width: 100%;
+  }
+}
+
+// ===============================
+// Footer
+// ===============================
+footer {
+  background-color: $color-secondary;
+  color: $color-text;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+
+  a {
+    color: $color-text;
+    font-weight: bold;
+  }
+}
+
+// ===============================
+// Hero
+// ===============================
+.hero {
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.9);
+    transition: transform 0.6s ease;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, $color-bg 100%);
+  }
+}
+
+.intro {
+  text-align: center;
+
+  h1 {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    color: $color-text;
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: $color-text-light;
+  }
+
+  .btn {
+    @include btn-style($color-primary, $color-bg);
+  }
+}
+
+// ===============================
+// Components
+// ===============================
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid $color-primary;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 0 auto;
+
+  .card {
+    @include card-style($color-bg, $color-border);
+  }
+}
+
+// Responsivitat de cards
+@media(max-width:1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width:775px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.featured-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// ===============================
+// Galeria Glider.js
+// ===============================
+.gallery {
+  text-align: center;
+  margin: 0 auto;
+  max-width: $max-width;
+
+  .glider-contain {
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+
+    .glider {
+      display: flex;
+      width: auto;
+
+      .gallery-img {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+
+        img {
+          width: 100%;
+          height: 500px;
+          object-fit: cover;
+          display: block;
+        }
+
+        .info {
+          position: absolute;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 5px 10px;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          color: $color-bg;
+          background-color: $color-text-light;
+          font-size: 0.9em;
+          pointer-events: none;
+
+          .credit {
+            margin-left: auto;
+            font-size: 0.85em;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
+    .glider.has-gap .glider-track {
+      display: flex;
+      gap: 1rem !important;
+    }
+
+    .glider-slide {
+      place-content: baseline !important;
+      margin-inline: 0;
+      margin-block: 0
+    }
+
+    .glider-prev {
+      @include glider-button($color-primary, $color-bg);
+      left: 15px;
+    }
+
+    .glider-next {
+      @include glider-button($color-primary, $color-bg);
+      right: 15px;
+    }
+
+    .dots {
+      text-align: center;
+      margin-top: 1rem;
+
+      button {
+        background: $color-border;
+        border: none;
+        width: 10px;
+        height: 10px;
+        margin: 0 4px;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &.active {
+          background: $color-primary;
+        }
+      }
+    }
+  }
+}
+
+// ===============================
+// Focus i accessibilitat extra
+// ===============================
+:focus-visible {
+  outline: 3px solid $color-focus;
+  outline-offset: 2px;
+}
+
+// ===============================
+// Media Queries Generals
+// ===============================
+
+// Tauleta
+@media(max-width:1024px) {
+  main {
+    padding: 1.5rem;
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
+
+  .intro h1 {
+    font-size: 2rem;
+  }
+}
+
+// Mòbil
+@media(max-width:775px) {
+
+  .hero {
+    height: 55vh;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  main {
+    padding: 1rem;
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  .intro h1 {
+    font-size: 1.8rem;
+  }
+
+  // Menú hamburguesa
+  .navbar {
+    position: relative;
+
+    .menu-toggle {
+      display: block !important;
+      z-index: 20;
+      position: relative;
+    }
+
+    .nav-links {
+      position: absolute;
+      top: 4rem;
+      flex-direction: column;
+      right: 0;
+      width: 200px;
+      max-height: 0;
+      overflow: hidden;
+      padding: 0;
+      background-color: $color-primary;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      z-index: 15;
+      text-align: center;
+
+      a {
+        display: block;
+        padding: 1rem;
+        color: $color-bg;
+      }
+
+      &.active {
+        max-height: 500px;
+      }
+    }
+  }
+}
