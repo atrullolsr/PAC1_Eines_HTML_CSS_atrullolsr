@@ -14,6 +14,7 @@ $max-width: 1200px;
 // ===============================
 // Mixins
 // ===============================
+@use "sass:color";
 @mixin btn-style($bg-color, $text-color) {
   background-color: $bg-color;
   color: $text-color;
@@ -26,7 +27,7 @@ $max-width: 1200px;
 
   &:hover,
   &:focus {
-    background-color: darken($bg-color, 10%);
+    background-color: color.adjust($bg-color, $lightness: -10%);
   }
 }
 
@@ -62,7 +63,7 @@ $max-width: 1200px;
       font-weight: bold;
 
       &:hover {
-        color: darken($color-primary, 15%);
+        color: color.adjust($color-primary, $lightness: -15%);
       }
     }
   }
@@ -83,7 +84,7 @@ $max-width: 1200px;
   z-index: 5;
 
   &:hover {
-    background-color: darken($bg-color, 10%);
+    background-color: color.adjust($bg-color, $lightness: -10%);
   }
 
   &:focus {
